@@ -33,11 +33,11 @@
         <title>Registration Requests Container</title>
       </container>
       <validationEmail>
-        <title>You are invited to access Nuxeo</title>
+        <title>Partage de documents via Nuxeo</title>
         <template>skin/views/userRegistration/ValidationEmailTemplate.ftl</template>
       </validationEmail>
       <reviveEmail>
-        <title>You are invited to access Nuxeo</title>
+        <title>Partage de documents via Nuxeo (Relance)</title>
         <template>skin/views/userRegistration/ReviveEmailTemplate.ftl</template>
       </reviveEmail>
       <validationRelUrl>site/userRegistration/validate/</validationRelUrl>
