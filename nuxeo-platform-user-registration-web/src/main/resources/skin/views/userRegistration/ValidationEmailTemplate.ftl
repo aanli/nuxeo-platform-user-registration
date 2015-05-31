@@ -15,6 +15,7 @@ Vous êtes invité à accéder au dossier <b>${registrationDoc.docinfo.documentT
 </div>
 <br/><p>Si vous ne pouvez pas cliquer sur le lien précédent, copiez l'URL suivante sur la barre d'adresse de votre navigateur :<br/>${info['validationBaseURL']}${registrationDoc.id}</p><br/>
 <br /><br />
+<!-- Mode SHIB on ne connait pas les identifiants d'authn à l'avance, ils sont déduits à la connexion.
 <p>Here are your login information:</p>
 <p>Login:  ${registrationDoc.userinfo.login}</p>
 <p>Password:
@@ -23,14 +24,13 @@ Your usual account password.
 <#else>
 ${registrationDoc.userinfo.password}
 </#if>
+-->
 </p>
 <br />
 <#if registrationDoc.registration.comment??>
 <p>Comment:</p>
 <p>${registrationDoc.registration.comment}</p>
-
 </#if>
-<p>Please, update your password after your first login.</p>
 <br />
 </body>
 </html>
