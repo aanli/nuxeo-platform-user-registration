@@ -24,10 +24,13 @@ import org.nuxeo.ecm.platform.ui.web.util.BaseURL;
 import org.nuxeo.ecm.user.registration.AlreadyProcessedRegistrationException;
 import org.nuxeo.ecm.user.registration.DocumentRegistrationInfo;
 import org.nuxeo.ecm.user.registration.UserRegistrationException;
+import org.nuxeo.ecm.user.registration.UserRegistrationInfo;
 import org.nuxeo.ecm.user.registration.UserRegistrationService;
 import org.nuxeo.ecm.webengine.model.WebObject;
 import org.nuxeo.ecm.webengine.model.impl.ModuleRoot;
 import org.nuxeo.runtime.api.Framework;
+
+import org.nuxeo.ecm.core.api.CoreSession;
 
 /**
  * @author <a href="mailto:akervern@nuxeo.com">Arnaud Kervern</a>
@@ -46,6 +49,11 @@ public class UserRegistrationObject extends ModuleRoot {
         String redirectUrl = ctx.getServerURL() + "/" + BaseURL.getWebAppName();
         try {
             Map<String, Serializable> additionalInfo = buildAdditionalInfos();
+  	     // ADD ESUP
+             CoreSession coreSession = ctx.getCoreSession();
+             String newUser = coreSession.getPrincipal().getName();
+             additionalInfo.put(UserRegistrationInfo.USERNAME_FIELD, newUser);
+             // END ADD
             Map<String, Serializable> registrationData = usr.validateRegistration(requestId, additionalInfo);
             DocumentModel regDoc = (DocumentModel) registrationData.get(REGISTRATION_DATA_DOC);
             String docId = (String) regDoc.getPropertyValue(DocumentRegistrationInfo.DOCUMENT_ID_FIELD);

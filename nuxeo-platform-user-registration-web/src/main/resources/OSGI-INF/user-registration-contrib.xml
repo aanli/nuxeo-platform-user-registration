@@ -50,12 +50,17 @@
     <event name="registrationAccepted"/>
     <event name="registrationValidated"/>
   </extension>
-
-  <extension
-      target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService"
-      point="openUrl">
-    <openUrl name="RegisterUser_validate">
-      <grantPattern>${org.nuxeo.ecm.contextPath}/site/userRegistration/validate/.*</grantPattern>
-    </openUrl>
+  
+  <extension target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService"
+    point="specificChains">
+    <specificAuthenticationChain name="invite">
+           <urlPatterns>
+               <url>(.*)/validate/.*</url>
+           </urlPatterns>
+    <replacementChain>
+        <plugin>BASIC_AUTH</plugin>
+        <plugin>SHIB_AUTH</plugin>
+    </replacementChain>
+    </specificAuthenticationChain>
   </extension>
 </component>
