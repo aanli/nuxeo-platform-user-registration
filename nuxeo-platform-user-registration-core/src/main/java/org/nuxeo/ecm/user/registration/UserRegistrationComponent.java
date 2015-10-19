@@ -42,7 +42,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.common.utils.IdUtils;
-import org.nuxeo.common.utils.Path;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -502,9 +501,14 @@ public class UserRegistrationComponent extends DefaultComponent implements
             // Build validationBaseUrl with nuxeo.url property as request is not accessible.
             if (!additionnalInfo.containsKey("validationBaseUrl")) {
                 String baseUrl = Framework.getProperty(NUXEO_URL_KEY);
-                Path path = new Path(StringUtils.isBlank(baseUrl) ? "/" : baseUrl);
-                path = path.append(getConfiguration(configurationName).getValidationRelUrl());
-                additionnalInfo.put("validationBaseURL", path.toString());
+  		if (!baseUrl.endsWith("/")) {
+                    baseUrl += "/";
+                }
+		String validationRelUrl = getConfiguration(configurationName).getValidationRelUrl();
+                if (validationRelUrl.startsWith("/")) {
+                    validationRelUrl = validationRelUrl.substring(1);
+                }
+                additionnalInfo.put("validationBaseURL", baseUrl.concat(validationRelUrl));
             }
             acceptRegistrationRequest(registrationUuid, additionnalInfo);
         }
