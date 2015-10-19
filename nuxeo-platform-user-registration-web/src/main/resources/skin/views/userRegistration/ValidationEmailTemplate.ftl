@@ -28,7 +28,7 @@ ${registrationDoc.userinfo.password}
 </p>
 <br />
 <#if registrationDoc.registration.comment??>
-<p>Comment:</p>
+<p>Message :</p>
 <p>${registrationDoc.registration.comment}</p>
 </#if>
 <br />
